@@ -26,8 +26,11 @@ void setup() {
 
 void loop() {
   float BodyTemp =  mlx.readObjectTempC();
-  BTSerial.write("T ");
-  BTSerial.write(BodyTemp);
+  BTSerial.print("T");
+  Serial.println ("T");
+  //BTSerial.write(BodyTemp);
+  BTSerial.print(30);
+  Serial.println (30);
   delay (100);
 
   
@@ -41,18 +44,26 @@ void loop() {
         Sp02 = pox.getSpO2();
         tsLastReport = millis();
     }
-   BTSerial.write("H ");
-   BTSerial.write(HeartRate);
-   BTSerial.write(" S ");
-   BTSerial.write(Sp02);
+   BTSerial.print("H");
+   Serial.println ("H");
+   //BTSerial.write(HeartRate);
+   BTSerial.print(130);
+   Serial.println (130);
+   BTSerial.print("S");
+   Serial.println ("S");
+   //BTSerial.write(Sp02);
+   BTSerial.print(1130);
+   Serial.println (1130);
    delay (100); 
 
     
     // send the value of analog input 0:
     float voltage =  (analogRead(A0));
    // float voltage=5.0/1024.0*1000.0*v;
-    BTSerial.write("E ");
-    BTSerial.write(voltage);
+    BTSerial.print("E");
+    Serial.println ("E");
+    BTSerial.print(voltage);
+    Serial.println (voltage);
   //Wait for a bit to keep serial data from saturating
   delay(150);
 }
@@ -60,6 +71,5 @@ void loop() {
 // Callback (registered below) fired when a pulse is detected
 void onBeatDetected()
 {
-    Serial.println("Beat!");
+    //Serial.println("Beat!");
 }
-
