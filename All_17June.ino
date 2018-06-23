@@ -4,7 +4,6 @@
 #include "MAX30100_PulseOximeter.h"
 SoftwareSerial BTSerial(15,14);
 
-String Frame = "";
 //For Temp
 Adafruit_MLX90614 mlx = Adafruit_MLX90614();
 
@@ -17,7 +16,7 @@ void setup() {
   Serial.begin(9600);
   BTSerial.begin(9600);
   mlx.begin();  
-  
+  pox.begin();
   pox.setOnBeatDetectedCallback(onBeatDetected);
 
   pinMode(10, INPUT); // Setup for leads off detection LO +
@@ -26,13 +25,10 @@ void setup() {
 
 void loop() {
   float BodyTemp =  mlx.readObjectTempC();
-  BTSerial.print(30);
-  Serial.println (30);
   
+  BTSerial.print(BodyTemp);
   BTSerial.print("T");
-  Serial.println ("T");
-  //BTSerial.write(BodyTemp);
-
+  
   delay (100);
 
   
@@ -47,19 +43,11 @@ void loop() {
         tsLastReport = millis();
     }
 
-   BTSerial.print(130);
-   Serial.println (130);
-   
+   BTSerial.print(HeartRate);
    BTSerial.print("H");
-   Serial.println ("H");
-   //BTSerial.write(HeartRate);
 
-   BTSerial.print(1130);
-   Serial.println (1130);
-   
+   BTSerial.print(Sp02);
    BTSerial.print("S");
-   Serial.println ("S");
-   //BTSerial.write(Sp02);
 
    delay (100); 
 
@@ -68,8 +56,6 @@ void loop() {
     if((digitalRead(10) == 1)||(digitalRead(11) == 1))
     {
       BTSerial.print(0);
-      Serial.print(0);
-      Serial.print("E");
       BTSerial.print("E");
     }
     else
@@ -77,11 +63,9 @@ void loop() {
       float voltage =  (analogRead(A0));
      // float voltage=5.0/1024.0*1000.0*v;
   
-      BTSerial.print(voltage);
-      Serial.println (voltage);
-      
+      BTSerial.print(voltage);      
       BTSerial.print("E");
-      Serial.println ("E");
+
   
     //Wait for a bit to keep serial data from saturating
       delay(150);
