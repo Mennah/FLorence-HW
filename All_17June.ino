@@ -2,7 +2,7 @@
 #include <Adafruit_MLX90614.h>
 #include <SoftwareSerial.h>
 #include "MAX30100_PulseOximeter.h"
-SoftwareSerial BTSerial(15,14);
+SoftwareSerial BTSerial(19,18);
 
 //For Temp
 Adafruit_MLX90614 mlx = Adafruit_MLX90614();
